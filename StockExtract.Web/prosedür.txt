@@ -1,0 +1,60 @@
+﻿USE [Test]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetStockData]    Script Date: 29.10.2023 17:33:08 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[GetStockData]
+    @MalKodu VARCHAR(255),
+    @BaslangicTarihi DATETIME,
+    @BitisTarihi DATETIME
+AS
+BEGIN
+    DECLARE @Stok NUMERIC(25, 6)
+    SET @Stok = 0
+
+    -- Geçici bir tablo (temp tablo) oluşturarak stok miktarını hesapla
+    CREATE TABLE #TempTable (
+        SiraNo INT,
+        IslemTur NVARCHAR(10),
+        EvrakNo NVARCHAR(16),
+        Tarih NVARCHAR(15),
+        GirisMiktar NUMERIC(25, 6),
+        CikisMiktar NUMERIC(25, 6),
+        Stok NUMERIC(25, 6)
+    )
+
+    INSERT INTO #TempTable
+    SELECT
+        ROW_NUMBER() OVER (ORDER BY Tarih) AS SiraNo,
+        CASE WHEN IslemTur = 0 THEN 'Giriş' ELSE 'Çıkış' END AS IslemTur,
+        EvrakNo,
+        CONVERT(VARCHAR(15), CAST(DATEADD(DAY, -2, Tarih) AS DATETIME), 104) AS Tarih,
+        CASE WHEN IslemTur = 0 THEN Miktar ELSE 0 END AS GirisMiktar,
+        CASE WHEN IslemTur = 1 THEN Miktar ELSE 0 END AS CikisMiktar,
+        0 AS Stok -- Stok için başlangıç değeri
+    FROM STI
+	INNER JOIN STK ON STK.MalKodu = STI.MalKodu 
+    WHERE Tarih BETWEEN @BaslangicTarihi AND @BitisTarihi
+	AND (STI.MalKodu LIKE CONCAT('%', @MalKodu, '%') OR STK.MalAdi LIKE CONCAT('%', @MalKodu, '%'))
+    ORDER BY Tarih;
+
+    -- Stok miktarını hesapla ve temp tabloya yaz
+    DECLARE @RunningStok NUMERIC(25, 6)
+    SET @RunningStok = 0
+
+    UPDATE #TempTable
+    SET
+        @RunningStok = Stok = @RunningStok + GirisMiktar - CikisMiktar
+
+    -- Sonuçları dön
+    SELECT * FROM #TempTable
+
+    -- Geçici tabloyu temizle
+    DROP TABLE #TempTable
+END
+GO

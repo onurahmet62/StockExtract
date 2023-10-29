@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExtract.Web", "StockExtract.Web\StockExtract.Web.csproj", "{F4D97319-A2CF-46A4-9BC4-7218149579CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExtract.Data", "StockExtract.DataAccess\StockExtract.Data.csproj", "{7DACC468-90F5-4FD3-A135-DC97FF7B6398}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4D97319-A2CF-46A4-9BC4-7218149579CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4D97319-A2CF-46A4-9BC4-7218149579CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4D97319-A2CF-46A4-9BC4-7218149579CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4D97319-A2CF-46A4-9BC4-7218149579CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DACC468-90F5-4FD3-A135-DC97FF7B6398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DACC468-90F5-4FD3-A135-DC97FF7B6398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DACC468-90F5-4FD3-A135-DC97FF7B6398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DACC468-90F5-4FD3-A135-DC97FF7B6398}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5A39A12-49F5-4684-8B40-DB9253349CFA}
+	EndGlobalSection
+EndGlobal

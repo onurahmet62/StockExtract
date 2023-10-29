@@ -1,0 +1,60 @@
+﻿@using StockExtract.DataAccess.Models;
+@model List<StocExtractModel>;
+@{
+    ViewData["Title"] = "Stok Extresi";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Stok Extresi</h1>
+</div>
+
+<form asp-controller="Home" asp-action="Index" class="form-inline">
+    <div class="row">
+        <div class="col-3 form-group">
+            <label>Baslangic Tarihi:</label>
+            <input type="date" class="form-control" id="startDate" name="startDate">
+        </div>
+        <div class="col-3 form-group">
+            <label>Bitis Tarihi:</label>
+            <input type="date" class="form-control" id="endDate" name="endDate">
+        </div>
+        <div class="col-3 form-group">
+            <label for="usr">Urun Adi / Kodu</label>
+            <input type="text" class="form-control" id="productDetail" name="productDetail">
+
+        </div>
+        <div class="col-1  form-group pt-4">
+            <button type="submit" class="btn btn-primary btn-block">
+                Filtrele
+            </button>
+        </div>
+    </div>
+</form>
+
+
+<table class="table table-striped">
+    <thead>
+    <th>Sira No</th>
+    <th>IslemTur</th>
+    <th>IslemTur</th>
+    <th>IslemTur</th>
+    <th>IslemTur</th>
+    <th>IslemTur</th>
+    <th>IslemTur</th>
+    </thead>
+    <tbody>
+        @if (Model != null)
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td> @(item.SiraNo)</td>
+                    <td> @(item.IslemTur)</td>
+                    <td> @(item.EvrakNo)</td>
+                    <td> @(item.Tarih)</td>
+                    <td> @(item.GirisMiktar)</td>
+                    <td> @(item.CikisMiktar)</td>
+                    <td> @(item.Stok)</td>
+                </tr>
+            }
+    </tbody>
+</table>
